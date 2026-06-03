@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Digital Healthcare Engineering (DHE) — Lifecycle Digitalisation of Ships &amp; Offshore Structures</title>
+<meta name="description" content="Digital Healthcare Engineering (DHE) is a modular framework for the lifecycle digitalisation of ships and offshore structures, integrating real-time monitoring, digital twins, AI diagnostics, and predictive maintenance. Developed at UCL by Abdulaziz Faisal Sindi." />
+<meta name="author" content="Abdulaziz Faisal Sindi" />
+<meta name="keywords" content="Digital Healthcare Engineering, DHE, lifecycle digitalisation, ships, offshore structures, offshore wind turbines, monopile, digital twin, structural health monitoring, predictive maintenance, AI diagnostics, UCL, Abdulaziz Sindi" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Digital Healthcare Engineering (DHE)" />
+<meta property="og:description" content="A modular framework for lifecycle digitalisation of ships and offshore structures — real-time monitoring, digital twins, AI diagnostics, and predictive maintenance." />
+<meta property="og:url" content="https://www.digitalhealthcareengineering.com" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#0d1a26; --ink-2:#13283a; --paper:#f4efe4; --paper-2:#ece4d4;
+    --line:#d8cdb6; --brass:#b9852f; --brass-soft:#cf9b46;
+    --teal:#2f6f6c; --muted:#5c6a73; --muted-light:#9fb0bb; --max:1140px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:"Hanken Grotesk",system-ui,sans-serif; font-size:18px; line-height:1.65; -webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  h1,h2,h3,h4{font-family:"Fraunces",Georgia,serif; font-weight:500; line-height:1.1; letter-spacing:-0.01em;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px;}
+  img{max-width:100%; height:auto; display:block;}
+
+  /* NAV */
+  header.nav{position:sticky; top:0; z-index:50; background:rgba(13,26,38,.94); backdrop-filter:blur(8px); border-bottom:1px solid rgba(255,255,255,.08);}
+  .nav-inner{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .brand{font-family:"Fraunces",serif; color:var(--paper); font-size:17px; letter-spacing:.01em; text-decoration:none; display:flex; align-items:center; gap:10px;}
+  .brand abbr{color:var(--brass-soft); text-decoration:none; font-style:italic;}
+  nav ul{display:flex; gap:28px; list-style:none; margin:0; padding:0;}
+  nav a{color:var(--muted-light); text-decoration:none; font-size:14px; letter-spacing:.02em; transition:color .2s;}
+  nav a:hover{color:var(--paper);}
+  .nav-cta{border:1px solid var(--brass); color:var(--brass-soft) !important; border-radius:2px; padding:6px 14px;}
+  .nav-cta:hover{background:var(--brass); color:#16110a !important;}
+  .nav-toggle{display:none; background:none; border:0; color:var(--paper); font-size:22px; cursor:pointer;}
+
+  /* HERO */
+  .hero{position:relative; overflow:hidden; background:linear-gradient(160deg,#081520 0%,#0f2335 55%,#122d3c 100%); color:var(--paper); padding:120px 0 108px;}
+  .contours{position:absolute; inset:0; opacity:.18; pointer-events:none;}
+  .glow-l{position:absolute; left:-200px; bottom:-100px; width:600px; height:600px; background:radial-gradient(circle,rgba(47,111,108,.4),transparent 65%); filter:blur(10px); pointer-events:none;}
+  .glow-r{position:absolute; right:-160px; top:-80px; width:480px; height:480px; background:radial-gradient(circle,rgba(185,133,47,.3),transparent 65%); filter:blur(10px); pointer-events:none;}
+  .hero-inner{position:relative; z-index:2;}
+  .eyebrow{font-size:12.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--brass-soft); margin:0 0 18px; font-weight:600;}
+  .hero h1{font-size:clamp(40px,6vw,80px); margin:0 0 6px; color:#fff; max-width:18ch;}
+  .hero .sub{font-size:clamp(16px,2.2vw,22px); font-family:"Fraunces",serif; font-style:italic; color:var(--brass-soft); margin:0 0 24px;}
+  .hero .lede{font-size:clamp(17px,2vw,21px); color:#cdd9e0; max-width:660px; margin:0 0 38px; line-height:1.6;}
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{display:inline-block; padding:13px 24px; border-radius:2px; text-decoration:none; font-size:14.5px; font-weight:600; letter-spacing:.02em; transition:all .18s;}
+  .btn-primary{background:var(--brass); color:#16110a;}
+  .btn-primary:hover{background:var(--brass-soft); transform:translateY(-1px);}
+  .btn-ghost{border:1px solid rgba(255,255,255,.3); color:var(--paper);}
+  .btn-ghost:hover{border-color:var(--brass-soft); color:var(--brass-soft);}
+
+  /* SECTIONS */
+  section{padding:88px 0;}
+  .section-tag{font-size:12.5px; letter-spacing:.22em; text-transform:uppercase; font-weight:600; color:var(--brass); margin:0 0 14px; display:flex; align-items:center; gap:12px;}
+  .section-tag::before{content:""; width:34px; height:1px; background:var(--brass);}
+  h2.section-title{font-size:clamp(28px,3.6vw,42px); margin:0 0 24px; max-width:22ch;}
+  .body-text{max-width:760px; color:#2c3a42; margin:0 0 18px; line-height:1.7;}
+  .lead{font-size:20px; font-family:"Fraunces",serif; line-height:1.45; color:var(--ink); margin:0 0 22px; max-width:760px;}
+
+  /* WHAT IS DHE */
+  .what{background:var(--paper);}
+  .what-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:64px; align-items:start; margin-top:8px;}
+  .analogy{border-left:2px solid var(--brass); padding:8px 0 8px 24px; margin:28px 0 0; max-width:560px;}
+  .analogy p{margin:0; font-family:"Fraunces",serif; font-size:19px; line-height:1.5; color:var(--ink-2);}
+  .need-cards{display:grid; gap:16px;}
+  .need-card{padding:20px 22px; border:1px solid var(--line); border-radius:3px; background:#fbf8f0;}
+  .need-card h4{font-size:17px; margin:0 0 6px; color:var(--ink);}
+  .need-card p{font-size:15px; margin:0; color:var(--muted);}
+
+  /* FRAMEWORK DARK */
+  .framework{background:var(--ink); color:var(--paper);}
+  .framework .section-tag{color:var(--brass-soft);} .framework .section-tag::before{background:var(--brass-soft);}
+  .framework h2{color:#fff;}
+  .framework .body-text{color:#cdd7dd;}
+  .flow-track{position:relative; margin-top:40px;}
+  .rail{position:absolute; top:27px; left:8%; right:8%; height:2px; background:linear-gradient(90deg,var(--brass),var(--teal)); opacity:.5; z-index:1;}
+  .flow{display:flex; gap:0;}
+  .step{flex:1; padding:0 14px; text-align:center;}
+  .dot{width:54px; height:54px; margin:0 auto 16px; border:1.5px solid var(--brass); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:"Fraunces",serif; font-size:22px; color:var(--brass-soft); background:rgba(185,133,47,.08); position:relative; z-index:2;}
+  .step h3{font-size:16px; color:#fff; margin:0 0 8px; line-height:1.25;}
+  .step p{font-size:13.5px; color:#aebac2; margin:0; line-height:1.5;}
+
+  /* APPLICATIONS */
+  .apps{background:var(--paper-2);}
+  .app-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:8px;}
+  .app-card{padding:24px; border:1px solid var(--line); border-radius:3px; background:#fbf8f0;}
+  .app-card .icon{font-size:26px; margin-bottom:12px;}
+  .app-card h3{font-size:18px; margin:0 0 8px; color:var(--ink);}
+  .app-card p{font-size:14.5px; margin:0; color:var(--muted); line-height:1.55;}
+
+  /* IN PRACTICE */
+  .practice{background:var(--paper);}
+  .fig{margin:0 0 36px; max-width:900px;}
+  .fig img{width:100%; border:1px solid var(--line); border-radius:4px; background:#fff;}
+  .fig figcaption{font-size:14.5px; color:var(--muted); margin-top:10px; line-height:1.55;}
+  .fig figcaption strong{color:var(--ink); font-weight:600;}
+  .fig-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px; max-width:900px;}
+  .fig-grid .fig{margin-bottom:0; max-width:none;}
+  .group-credit{display:inline-block; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--teal); border:1px solid var(--teal); border-radius:2px; padding:2px 8px; margin-top:8px;}
+
+  /* PUBLICATIONS */
+  .pubs{background:var(--paper-2);}
+  .pubs .section-tag{} 
+  .pub-group-lbl{font-family:"Fraunces",serif; font-size:14px; letter-spacing:.16em; text-transform:uppercase; color:var(--teal); font-weight:600; margin:42px 0 4px;}
+  .pub-group-lbl.first{margin-top:8px;}
+  .pub{display:grid; grid-template-columns:72px 1fr; gap:20px; padding:20px 0; border-bottom:1px solid var(--line);}
+  .pub:first-of-type{border-top:1px solid var(--line);}
+  .pub .yr{font-family:"Fraunces",serif; font-size:20px; color:var(--brass); padding-top:2px;}
+  .pub h3{font-size:17px; margin:0 0 5px; line-height:1.3; color:var(--ink);}
+  .pub .meta{font-size:14px; color:var(--muted); margin:0 0 3px;}
+  .pub .authors{font-size:14px; color:#3a4750; margin:0;}
+  .pub .authors strong{color:var(--brass); font-weight:600;}
+  .pub .tag{display:inline-block; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--teal); border:1px solid var(--teal); border-radius:2px; padding:2px 8px; margin-top:8px;}
+  .pub .doi{color:var(--teal); font-size:13.5px; text-decoration:none; border-bottom:1px solid transparent;}
+  .pub .doi:hover{border-bottom-color:var(--teal);}
+
+  /* RESEARCHER */
+  .researcher{background:var(--ink); color:var(--paper);}
+  .researcher .section-tag{color:var(--brass-soft);} .researcher .section-tag::before{background:var(--brass-soft);}
+  .researcher h2{color:#fff;}
+  .researcher-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:64px; align-items:start; margin-top:8px;}
+  .researcher .body-text{color:#cdd7dd;}
+  .profile-links{display:flex; flex-wrap:wrap; gap:10px; margin-top:28px;}
+  .plink{display:inline-flex; align-items:center; gap:7px; padding:10px 16px; border:1px solid rgba(255,255,255,.22); border-radius:2px; text-decoration:none; color:var(--paper); font-size:14px; transition:border-color .2s, color .2s;}
+  .plink:hover{border-color:var(--brass-soft); color:var(--brass-soft);}
+  .stats{display:grid; gap:20px;}
+  .stat{border-left:2px solid var(--brass); padding:6px 0 6px 20px;}
+  .stat .n{font-family:"Fraunces",serif; font-size:36px; color:var(--brass-soft); line-height:1;}
+  .stat .l{font-size:14.5px; color:#9fb0bb; margin-top:4px;}
+
+  footer{background:#060f17; color:var(--muted-light); padding:36px 0; font-size:14px;}
+  .footer-inner{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;}
+  .footer-inner a{color:var(--brass-soft); text-decoration:none;}
+  .footer-inner a:hover{color:#fff;}
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
+  @media(max-width:900px){
+    .what-grid{grid-template-columns:1fr; gap:36px;}
+    .app-grid{grid-template-columns:1fr 1fr;}
+    .researcher-grid{grid-template-columns:1fr; gap:36px;}
+    .flow{flex-wrap:wrap; gap:26px;}
+    .step{flex:0 0 45%;}
+    .rail{display:none;}
+  }
+  @media(max-width:620px){
+    body{font-size:17px;}
+    nav ul{display:none; position:absolute; top:64px; left:0; right:0; background:var(--ink); flex-direction:column; gap:0; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.1);}
+    nav ul.open{display:flex;}
+    nav li{padding:12px 28px;}
+    .nav-toggle{display:block;}
+    section{padding:60px 0;}
+    .hero{padding:88px 0 76px;}
+    .step{flex:0 0 100%;}
+    .app-grid{grid-template-columns:1fr;}
+    .fig-grid{grid-template-columns:1fr;}
+    .pub{grid-template-columns:52px 1fr; gap:12px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top"><abbr title="Digital Healthcare Engineering">DHE</abbr> &nbsp;Digital Healthcare Engineering</a>
+    <nav>
+      <button class="nav-toggle" onclick="document.getElementById('menu').classList.toggle('open')">&#9776;</button>
+      <ul id="menu">
+        <li><a href="#what">What is DHE</a></li>
+        <li><a href="#framework">Framework</a></li>
+        <li><a href="#applications">Applications</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#researcher">Researcher</a></li>
+        <li><a href="https://azizsindi.github.io" target="_blank" rel="noopener" class="nav-cta">Full Profile</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <svg class="contours" preserveAspectRatio="none" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="none" stroke="#ffffff" stroke-width="1">
+      <path d="M-50 100 C 300 50, 550 180, 850 110 S 1300 80, 1300 80"/>
+      <path d="M-50 200 C 250 155, 520 270, 820 205 S 1300 165, 1300 165"/>
+      <path d="M-50 310 C 270 255, 560 365, 860 310 S 1300 270, 1300 270"/>
+      <path d="M-50 420 C 280 375, 580 465, 880 420 S 1300 390, 1300 390"/>
+      <path d="M-50 520 C 300 485, 600 555, 900 515 S 1300 485, 1300 485"/>
+    </g>
+  </svg>
+  <div class="glow-l"></div>
+  <div class="glow-r"></div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow">A Framework for Lifecycle Digitalisation</p>
+    <h1>Digital Healthcare Engineering</h1>
+    <p class="sub">Keeping aging ships and offshore structures safe across their entire service life.</p>
+    <p class="lede">DHE is a modular framework that connects real-time structural monitoring, digital twins, AI-driven diagnostics, and predictive maintenance into a single, continuous system — applied to ships, offshore wind turbines, jacket platforms, subsea pipelines, and beyond.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#framework">The Framework</a>
+      <a class="btn btn-ghost" href="#publications">Research &amp; Publications</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IS DHE -->
+<section class="what reveal" id="what">
+  <div class="wrap">
+    <p class="section-tag">Overview</p>
+    <h2 class="section-title">What is Digital Healthcare Engineering?</h2>
+    <div class="what-grid">
+      <div>
+        <p class="lead">DHE treats engineering structures the way modern medicine treats a patient: through continuous monitoring, accurate diagnosis, and timely intervention.</p>
+        <p class="body-text">Ships and offshore structures operate in some of the most demanding environments on earth — subjected to corrosion, fatigue cracking, and mechanical damage across decades of service, often in remote locations far from inspection and maintenance facilities.</p>
+        <p class="body-text">Conventional maintenance strategies, based on scheduled dry-docking and reactive repair, are increasingly unable to keep pace with the scale and complexity of aging infrastructure. Digital Healthcare Engineering addresses this gap by giving every structure a continuous, data-driven health picture — from sensors in the field, through analytics on shore, to predictive maintenance decisions well before failure.</p>
+        <div class="analogy">
+          <p>Just as a doctor monitors vital signs, diagnoses early, and prescribes treatment in time — DHE does the same for steel structures at sea.</p>
+        </div>
+      </div>
+      <div class="need-cards">
+        <div class="need-card">
+          <h4>Corrosion wastage</h4>
+          <p>Metal loss from seawater exposure progressively reduces structural capacity and is difficult to quantify without continuous monitoring.</p>
+        </div>
+        <div class="need-card">
+          <h4>Fatigue cracking</h4>
+          <p>Cyclic loading from waves, wind, and operational forces accumulates damage that can propagate undetected without real-time sensing.</p>
+        </div>
+        <div class="need-card">
+          <h4>Mechanical damage</h4>
+          <p>Impact events, denting, and deformation alter structural performance in ways that static inspection intervals cannot reliably capture.</p>
+        </div>
+        <div class="need-card">
+          <h4>Remote operation</h4>
+          <p>Offshore structures are far from shore and human expertise, making continuous digital oversight essential rather than optional.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORK -->
+<section class="framework reveal" id="framework">
+  <div class="wrap">
+    <p class="section-tag">The Five Modules</p>
+    <h2 class="section-title">How DHE works</h2>
+    <p class="body-text">The framework is modular by design — each component can be developed, deployed, and validated independently while feeding the whole system. Together they form a closed loop from field sensing to maintenance action.</p>
+    <div class="flow-track">
+      <div class="rail"></div>
+      <div class="flow">
+        <div class="step">
+          <div class="dot">1</div>
+          <h3>Real-Time Monitoring &amp; Digitisation</h3>
+          <p>In-service measurement and digitisation of structural health parameters using portable and fixed sensors.</p>
+        </div>
+        <div class="step">
+          <div class="dot">2</div>
+          <h3>Secure Data Transmission</h3>
+          <p>Reliable transfer of field data to land-based analytics centres, including via satellite link from remote locations.</p>
+        </div>
+        <div class="step">
+          <div class="dot">3</div>
+          <h3>Digital-Twin Analytics</h3>
+          <p>Advanced structural simulation and data analytics using a digital twin of the physical asset.</p>
+        </div>
+        <div class="step">
+          <div class="dot">4</div>
+          <h3>AI-Driven Diagnostics</h3>
+          <p>Machine learning and AI-driven assessment of structural condition, with automated recommendations for remedial action.</p>
+        </div>
+        <div class="step">
+          <div class="dot">5</div>
+          <h3>Predictive Health Analysis</h3>
+          <p>Forecasting future condition to plan inspection and maintenance optimally over the remaining service life.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATIONS -->
+<section class="apps reveal" id="applications">
+  <div class="wrap">
+    <p class="section-tag">Applications</p>
+    <h2 class="section-title">Where DHE is being applied</h2>
+    <p class="body-text">Since its proposal the DHE framework has been extended and applied across a growing range of marine and offshore asset classes by researchers at UCL and collaborating institutions worldwide.</p>
+    <div class="app-grid">
+      <div class="app-card">
+        <div class="icon">💨</div>
+        <h3>Monopile Offshore Wind Turbines</h3>
+        <p>Ageing monopile foundations under combined wind, wave, and rotor loading — including corrosion, fatigue, and storm-condition assessments.</p>
+      </div>
+      <div class="app-card">
+        <div class="icon">🚢</div>
+        <h3>Ships &amp; Containerships</h3>
+        <p>Hull structural health monitoring, digital twin modelling, and predictive maintenance for ageing commercial vessels including containerships.</p>
+      </div>
+      <div class="app-card">
+        <div class="icon">🏗️</div>
+        <h3>Jacket-Type Offshore Platforms</h3>
+        <p>Safety and sustainability assessment of ageing jacket platforms in extreme weather, incorporating DHE diagnostics and maintenance planning.</p>
+      </div>
+      <div class="app-card">
+        <div class="icon">🔵</div>
+        <h3>Subsea Pipelines</h3>
+        <p>State-of-the-art reviews and data-driven methods for DHE-based monitoring and maintenance of ageing offshore pipeline infrastructure.</p>
+      </div>
+      <div class="app-card">
+        <div class="icon">🏭</div>
+        <h3>Land-Based LNG Tanks</h3>
+        <p>Feasibility assessment of DHE for ageing LNG storage tanks in seismic environments, extending the framework onshore.</p>
+      </div>
+      <div class="app-card">
+        <div class="icon">👷</div>
+        <h3>Seafarer Health &amp; Well-Being</h3>
+        <p>Human Digital Healthcare Engineering — applying the same framework principles to monitoring and improving the health of seafarers and offshore workers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IN PRACTICE -->
+<section class="practice reveal">
+  <div class="wrap">
+    <p class="section-tag">In Practice</p>
+    <h2 class="section-title">Field testing and digital twins</h2>
+
+    <figure class="fig">
+      <img src="dt-monopile.png" alt="Digital twin simulation of an ageing monopile offshore wind turbine">
+      <figcaption><strong>Digital twin simulation within the DHE framework for an ageing monopile-type offshore wind turbine.</strong> High-fidelity structural response modelling used to assess limit states under combined wind, wave, and rotor blade loading.</figcaption>
+    </figure>
+
+    <div class="fig-grid">
+      <figure class="fig">
+        <img src="field-monitoring.png" alt="In-service damage monitoring using portable ultrasonic sensor and tablet">
+        <figcaption><strong>Module 1 in the field.</strong> Portable ultrasonic sensing with tablet-based inspection workflow for in-situ damage detection and digitisation.</figcaption>
+      </figure>
+      <figure class="fig">
+        <img src="field-damage.png" alt="On-site measurements of corrosion, cracking, denting and tablet interface">
+        <figcaption><strong>On-site measurement and digitisation workflow.</strong> (a) corrosion wastage, (b) root cracking, (c) mechanical denting, and (d) tablet interface for real-time damage encoding and digital-twin updating.</figcaption>
+      </figure>
+    </div>
+
+    <h3 style="font-size:22px; margin:52px 0 16px;">Application to containership hull structures</h3>
+    <p class="body-text">The framework has also been applied to ageing containership hulls, demonstrated on the container ship <em>Ning Yuan</em> (Ningbo) by Hyeong-Jin Kim within the UCL research group.</p>
+    <div class="fig-grid">
+      <figure class="fig">
+        <img src="containership-port.png" alt="Target containership Ning Yuan in port">
+        <figcaption><strong>Target ship: <em>Ning Yuan</em>.</strong> In-service container ship used for field validation of the DHE monitoring modules.<br><span class="group-credit">Group work — H.-J. Kim, UCL</span></figcaption>
+      </figure>
+      <figure class="fig">
+        <img src="containership-dt.png" alt="Digital twin stress visualisation of the container ship hull">
+        <figcaption><strong>Digital twin of the containership hull.</strong> Full-hull structural response model for predictive health analysis.<br><span class="group-credit">Group work — H.-J. Kim, UCL</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section class="pubs reveal" id="publications">
+  <div class="wrap">
+    <p class="section-tag">Research</p>
+    <h2 class="section-title">Key DHE publications</h2>
+    <p class="body-text">The framework was first proposed in 2021 and has since grown into an active international research field, with studies spanning ships, offshore wind, jacket platforms, LNG tanks, pipelines, and seafarer health.</p>
+
+    <p class="pub-group-lbl first">Originating &amp; core framework work</p>
+
+    <div class="pub">
+      <div class="yr">2021</div>
+      <div class="body">
+        <h3>A State-of-the-Art on Digital Twin Modelling for Lifetime Healthcare of Ships and Offshore Structures</h3>
+        <p class="meta">ICSOS 2021 — International Conference on Ships and Offshore Structures, Hamburg, Germany.</p>
+        <p class="authors"><strong>Abdulaziz Sindi</strong>, Giles Thomas, Jeom Kee Paik</p>
+        <span class="tag">Conference Paper</span>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="yr">2024</div>
+      <div class="body">
+        <h3>Advancing Digital Healthcare Engineering for Ageing Ships and Offshore Structures: An In-Depth Review and Feasibility Analysis</h3>
+        <p class="meta">Data-Centric Engineering (Cambridge University Press), Vol. 5, e18. <a class="doi" href="https://doi.org/10.1017/dce.2024.14">doi:10.1017/dce.2024.14</a></p>
+        <p class="authors"><strong>Abdulaziz Sindi</strong>, Hyeong Jin Kim, Young Jun Yang, Giles Thomas, Jeom Kee Paik</p>
+        <span class="tag">Journal Article</span>
+      </div>
+    </div>
+
+    <p class="pub-group-lbl">Applications and extensions</p>
+
+    <div class="pub">
+      <div class="yr">2024</div>
+      <div class="body">
+        <h3>Effect of Corrosion Wastage on the Limit States of Monopile-Type Offshore Wind Turbines Under Combined Wind and Rotor Blade Rotation</h3>
+        <p class="meta">Materials and Corrosion (Wiley). <a class="doi" href="https://doi.org/10.1002/maco.202414378">doi:10.1002/maco.202414378</a></p>
+        <p class="authors"><strong>Abdulaziz Sindi</strong>, Hyeong Jin Kim, Igor A. Chaves, Jeom Kee Paik</p>
+        <span class="tag">Journal Article</span>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="yr">2025</div>
+      <div class="body">
+        <h3>Digital Healthcare Engineering System for Enhancing the Safety and Sustainability of Ageing Monopile Offshore Wind Turbines in Storm Conditions</h3>
+        <p class="meta">SNAME Maritime Convention 2025, Norfolk, VA. <a class="doi" href="https://doi.org/10.5957/SMC-2025-049">doi:10.5957/SMC-2025-049</a></p>
+        <p class="authors"><strong>Abdulaziz Sindi</strong>, Jeom Kee Paik</p>
+        <span class="tag">Conference Paper</span>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="yr">2025</div>
+      <div class="body">
+        <h3>Enhancing the Safety and Sustainability of Aging Jacket-Type Offshore Wind Turbines through Digital Healthcare Engineering: A Literature Review</h3>
+        <p class="meta">Ships and Offshore Structures, 2025.</p>
+        <p class="authors">Xie Y, Kim HJ, Yin Y, et al.</p>
+        <span class="tag">Journal Article</span>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="yr">2025</div>
+      <div class="body">
+        <h3>Human Digital Healthcare Engineering for Seafarers and Offshore Workers: A Comprehensive Review</h3>
+        <p class="meta">Systems, 2025, 13:335.</p>
+        <p class="authors">Cui M-X, He K-H, Wang F, et al.</p>
+        <span class="tag">Journal Article</span>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="yr">2026</div>
+      <div class="body">
+        <h3>Digital Healthcare Engineering for Enhancing the Safety and Sustainability of Aging Jacket Platforms: A Comprehensive Review</h3>
+        <p class="meta">Safety Science, 2026, 199:107175.</p>
+        <p class="authors">Liu K, Cai B, Xie Y, et al.</p>
+        <span class="tag">Journal Article</span>
+      </div>
+    </div>
+
+    <p style="margin-top:28px; font-size:15px; color:var(--muted);">For the full publication record including under-review manuscripts see <a href="https://azizsindi.github.io/#publications" style="color:var(--teal);">azizsindi.github.io</a> or the <a href="https://www.ucl.ac.uk/engineering/marine-safety-and-digital-healthcare-engineering-group" style="color:var(--teal);" target="_blank" rel="noopener">UCL Marine Safety and DHE Group</a>.</p>
+  </div>
+</section>
+
+<!-- RESEARCHER -->
+<section class="researcher reveal" id="researcher">
+  <div class="wrap">
+    <p class="section-tag">The Researcher</p>
+    <h2 class="section-title">Developed at UCL</h2>
+    <div class="researcher-grid">
+      <div>
+        <p class="body-text">The modular framework for lifecycle digitalisation at the core of Digital Healthcare Engineering was first proposed by Abdulaziz Faisal Sindi during his doctoral research at University College London. Beginning with his 2021 conference paper, the framework has developed into DHE and expanded into an active research programme spanning multiple asset classes and institutions.</p>
+        <p class="body-text">Abdulaziz is a PhD researcher in the Department of Mechanical Engineering at UCL, working at the intersection of structural integrity, digital twins, and AI-driven diagnostics for marine and offshore infrastructure. His thesis applies the DHE framework specifically to ageing monopile offshore wind turbines.</p>
+        <p class="body-text">The work is supported by a full doctoral scholarship from the Kingdom of Saudi Arabia, administered through the Saudi Arabian Cultural Bureau in London, and has been recognised with a Certificate of Innovation from the Royal Embassy of Saudi Arabia Cultural Bureau in London.</p>
+        <div class="profile-links">
+          <a class="plink" href="https://azizsindi.github.io" target="_blank" rel="noopener">Personal Site</a>
+          <a class="plink" href="https://profiles.ucl.ac.uk/81227-abdulaziz-faisal-sindi-sindi/about" target="_blank" rel="noopener">UCL Profile</a>
+          <a class="plink" href="https://orcid.org/0009-0009-2358-2190" target="_blank" rel="noopener">ORCID</a>
+          <a class="plink" href="https://scholar.google.co.uk/citations?user=Xps83mAAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+          <a class="plink" href="https://www.researchgate.net/profile/Abdulaziz-Sindi" target="_blank" rel="noopener">ResearchGate</a>
+          <a class="plink" href="https://www.linkedin.com/in/aziz-sindi-4a5a2b127/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="n">7</div>
+          <div class="l">Publications from the doctoral programme</div>
+        </div>
+        <div class="stat">
+          <div class="n">15+</div>
+          <div class="l">Studies applying and extending the DHE framework internationally</div>
+        </div>
+        <div class="stat">
+          <div class="n">2021</div>
+          <div class="l">Year of the originating framework paper</div>
+        </div>
+        <div class="stat">
+          <div class="n">UCL</div>
+          <div class="l">Marine Safety and Digital Healthcare Engineering Group</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>© <span id="yr"></span> digitalhealthcareengineering.com</span>
+    <span>Developed by <a href="https://azizsindi.github.io">Abdulaziz Faisal Sindi</a>, UCL</span>
+    <span><a href="https://www.ucl.ac.uk/engineering/marine-safety-and-digital-healthcare-engineering-group" target="_blank" rel="noopener">UCL DHE Group</a></span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  document.querySelectorAll('#menu a').forEach(a => a.addEventListener('click', () => document.getElementById('menu').classList.remove('open')));
+  const io = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }}), {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
